@@ -13,10 +13,13 @@ const Counter = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const url = "http://" + dbUrl + "/counters";
+        const url = "https://" + dbUrl + "/counters";
         const response = await axios.get(url);
         const oldCount = response["data"]["_embedded"]["counters"][0]["count"];
-        if (window.location.pathname === "/home") {
+        if (
+          window.location.pathname === "/home" ||
+          window.location.pathname === "/"
+        ) {
           const newCount = oldCount + 1;
           setCount(newCount);
           const newData = {
