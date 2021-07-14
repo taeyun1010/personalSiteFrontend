@@ -10,7 +10,7 @@ import "antd/dist/antd.css";
 
 const { SubMenu } = Menu;
 
-class Home extends React.Component {
+class Nav extends React.Component {
   state = {
     current: "mail",
   };
@@ -23,7 +23,7 @@ class Home extends React.Component {
   render() {
     const { current } = this.state;
     return (
-      <div style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+      <div>
         <Menu
           onClick={this.handleClick}
           selectedKeys={[current]}
@@ -69,10 +69,10 @@ class Home extends React.Component {
             </a>
           </Menu.Item>
           <Menu.Item>
-            <a href="/signIn">로그인</a>
+            <a href="/signin">로그인</a>
           </Menu.Item>
           <Menu.Item>
-            <a href="/signUp">회원가입</a>
+            <a href="/signup">회원가입</a>
           </Menu.Item>
         </Menu>
       </div>
@@ -80,5 +80,5 @@ class Home extends React.Component {
   }
 }
 
-ReactDOM.render(<Home />, document.getElementById("root"));
-export default Home;
+ReactDOM.render(<Nav />, document.getElementById("root"));
+export default Nav;

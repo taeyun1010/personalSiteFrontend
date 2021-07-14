@@ -4,25 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { Layout } from "antd";
-import Home from "./components/Home";
-
-const { Header, Footer, Sider, Content } = Layout;
 
 ReactDOM.render(
-  <>
-    <Layout>
-      {/* <Header style={{ position: "fixed", width: "100%" }}> */}
-      {/* <Home style={{ width: "100%" }}></Home> */}
-      {/* </Header> */}
-      <Content>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Content>
-      <Footer>Footer</Footer>
-    </Layout>
-  </>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

@@ -11,6 +11,9 @@ import {
   AutoComplete,
 } from "antd";
 import ReactDOM from "react-dom";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const { Option } = Select;
 const residences = [
@@ -82,6 +85,7 @@ const RegistrationForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+    console.log("DB url : ", process.env.REACT_APP_DB_HOST);
     console.log("Received values of form: ", values);
   };
 
@@ -209,7 +213,7 @@ const RegistrationForm = () => {
             },
           ]}
         >
-          {/* <Cascader options={residences} /> */}
+          <Cascader options={residences} />
         </Form.Item>
 
         <Form.Item
