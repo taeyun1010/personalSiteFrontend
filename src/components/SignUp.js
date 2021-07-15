@@ -118,7 +118,7 @@ const RegistrationForm = () => {
     value: website,
   }));
   return (
-    <div style={{ position: "relative", top: "100px" }}>
+    <div style={{ position: "relative", top: "100px", marginBottom: "200px" }}>
       <Form
         {...formItemLayout}
         form={form}

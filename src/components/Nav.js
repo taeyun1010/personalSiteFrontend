@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, Button, Layout } from "antd";
+import { Menu } from "antd";
 import {
   MailOutlined,
   AppstoreOutlined,
@@ -30,7 +30,7 @@ class Nav extends React.Component {
           mode="horizontal"
         >
           <Menu.Item>
-            <a href="/home">
+            <a href="/">
               <img
                 src="img/kunimitsu.jpg"
                 alt="logo"
@@ -68,6 +68,12 @@ class Nav extends React.Component {
               Navigation Four - Link
             </a>
           </Menu.Item>
+          <SubMenu key="SubMenu" icon={<SettingOutlined />} title="기타">
+            <Menu.Item key="setting:1">Option 1</Menu.Item>
+            <Menu.Item key="setting:2">
+              <a href="/platform-game">Platform Game</a>
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item>
             <a href="/signin">로그인</a>
           </Menu.Item>

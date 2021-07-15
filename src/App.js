@@ -1,20 +1,32 @@
-import { Menu, Layout } from "antd";
+import { Layout } from "antd";
 import React from "react";
 import { Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import RegistrationForm from "./components/SignUp";
 import Counter from "./components/Counter";
+import Index from "./components/Index";
+import PlatformGame from "./components/PlatformGame";
+import "./platformGame.css";
 
 const { Header, Footer, Content } = Layout;
 
 const App = () => {
   return (
     <Layout>
-      <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
+      <Header
+        style={{
+          position: "fixed",
+          zIndex: 1,
+          width: "100%",
+          backgroundColor: "white",
+        }}
+      >
         <Nav></Nav>
       </Header>
       <Content>
+        <Route exact path="/" component={Index} />
         <Route path="/signup" component={RegistrationForm} />
+        <Route path="/platform-game" component={PlatformGame} />
       </Content>
       <Footer
         style={{
@@ -26,7 +38,6 @@ const App = () => {
         }}
       >
         <Route path="/" component={Counter} />
-        {/* <Counter></Counter> */}
       </Footer>
     </Layout>
   );
