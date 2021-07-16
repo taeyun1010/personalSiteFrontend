@@ -720,29 +720,26 @@ class PlatformGame extends Component {
 
       switch (levelGlobal) {
         case 0: {
-          // backgroundDiv.style.backgroundImage = "url('./background/angelIsland.png')";
-          if (replayMusic) musicDiv.setAttribute("src", "./music/cirno.mp3");
+          if (replayMusic) musicDiv.setAttribute("src", "music/cirno.mp3");
           break;
         }
         case 1: {
-          // backgroundDiv.style.backgroundImage = "url('./background/skyBattery.png')";
-          if (replayMusic)
-            musicDiv.setAttribute("src", "./music/chineseTea.mp3");
+          if (replayMusic) musicDiv.setAttribute("src", "music/chineseTea.mp3");
           break;
         }
         case 2: {
-          // backgroundDiv.style.backgroundImage = "url('./background/skyBattery2.png')";
-          if (replayMusic) musicDiv.setAttribute("src", "./music/cirno2.mp3");
+          if (replayMusic) musicDiv.setAttribute("src", "music/cirno2.mp3");
           break;
         }
         case 3: {
-          // backgroundDiv.style.backgroundImage = "url('./background/lavaReef.png')";
-          if (replayMusic) musicDiv.setAttribute("src", "./music/flandre.mp3");
+          if (replayMusic) musicDiv.setAttribute("src", "music/flandre.mp3");
           break;
         }
         case 4: {
-          // backgroundDiv.style.backgroundImage = "url('./background/doomsDay.png')";
-          if (replayMusic) musicDiv.setAttribute("src", "./music/remilia.mp3");
+          if (replayMusic) musicDiv.setAttribute("src", "music/remilia.mp3");
+          break;
+        }
+        default: {
           break;
         }
       }
@@ -1040,7 +1037,6 @@ class PlatformGame extends Component {
     document.querySelector("#lives").addEventListener("change", changeHandler);
 
     //runGame(GAME_LEVELS, DOMDisplay);
-    console.log("inside script!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
     runGame(GAME_LEVELS, CanvasDisplay);
   }
   render() {
@@ -1063,7 +1059,6 @@ class PlatformGame extends Component {
             maxLength="5"
           />
         </div>
-        {/* <script src="script/platformGameScript.js"></script> */}
       </div>
     );
   }
