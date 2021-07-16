@@ -206,8 +206,8 @@ class PlatformGame extends Component {
 
       if (playerY <= monsterY - 1) {
         const filtered = state.actors.filter((a) => a != this);
-        const killSound = new Audio("./sound/damnImGood.mp3");
-        const killSound2 = new Audio("./sound/comeGetSome.mp3");
+        const killSound = new Audio("sound/damnImGood.mp3");
+        const killSound2 = new Audio("sound/comeGetSome.mp3");
         const randomVal = Math.random();
 
         if (randomVal < 0.5) killSound.play();
@@ -819,7 +819,7 @@ class PlatformGame extends Component {
           levelGlobal = level;
           replayMusic = true;
         } else if (status === "lost") {
-          const deathSound = new Audio("./sound/death.mp3");
+          const deathSound = new Audio("sound/death.mp3");
           deathSound.play();
 
           if (remainingLives-- === 0) {
