@@ -7,6 +7,7 @@ import Counter from "./components/Counter";
 import Index from "./components/Index";
 import PlatformGame from "./components/PlatformGame";
 import "./platformGame.css";
+import SignIn from "./components/SignIn";
 
 const { Header, Footer, Content } = Layout;
 
@@ -23,8 +24,9 @@ const App = () => {
       >
         <Nav></Nav>
       </Header>
-      <Content>
+      <Content style={{ width: "1200px", margin: "0 auto" }}>
         <Route exact path="/" component={Index} />
+        <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={RegistrationForm} />
         <Route path="/platform-game" component={PlatformGame} />
       </Content>

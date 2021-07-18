@@ -12,38 +12,39 @@ import {
 } from "antd";
 import ReactDOM from "react-dom";
 import dotenv from "dotenv";
+import axios from "axios";
 
 dotenv.config();
 
 const { Option } = Select;
 const residences = [
   {
-    value: "zhejiang",
-    label: "Zhejiang",
+    value: "서울특별시",
+    label: "서울특별시",
     children: [
       {
-        value: "hangzhou",
-        label: "Hangzhou",
+        value: "강남구",
+        label: "강남구",
         children: [
           {
-            value: "xihu",
-            label: "West Lake",
+            value: "역삼동",
+            label: "역삼동",
           },
         ],
       },
     ],
   },
   {
-    value: "jiangsu",
-    label: "Jiangsu",
+    value: "경기도",
+    label: "경기도",
     children: [
       {
-        value: "nanjing",
-        label: "Nanjing",
+        value: "분당구",
+        label: "분당구",
         children: [
           {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men",
+            value: "성남시",
+            label: "성남시",
           },
         ],
       },
@@ -84,9 +85,17 @@ const tailFormItemLayout = {
 const RegistrationForm = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-    console.log("DB url : ", process.env.REACT_APP_DB_HOST);
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    const dbUrl = process.env.REACT_APP_DB_HOST;
+    values["residence"] = values["residence"].join();
+    const url = "https://" + dbUrl + "/members";
+    try {
+      await axios.post(url, values);
+    } catch (e) {
+      if (e.response.status === 409) {
+        alert("이미 등록된 이메일입니다.");
+      }
+    }
   };
 
   const prefixSelector = (
@@ -96,7 +105,7 @@ const RegistrationForm = () => {
           width: 70,
         }}
       >
-        <Option value="86">+86</Option>
+        <Option value="82">+82</Option>
         <Option value="87">+87</Option>
       </Select>
     </Form.Item>
@@ -125,22 +134,22 @@ const RegistrationForm = () => {
         name="register"
         onFinish={onFinish}
         initialValues={{
-          residence: ["zhejiang", "hangzhou", "xihu"],
-          prefix: "86",
+          residence: ["서울특별시", "강남구", "역삼동"],
+          prefix: "82",
         }}
         scrollToFirstError
       >
         <Form.Item
           name="email"
-          label="E-mail"
+          label="이메일"
           rules={[
             {
               type: "email",
-              message: "The input is not valid E-mail!",
+              message: "유효한 이메일이 아닙니다.",
             },
             {
               required: true,
-              message: "Please input your E-mail!",
+              message: "이메일을 입력해주세요.",
             },
           ]}
         >
@@ -149,11 +158,11 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="password"
-          label="Password"
+          label="비밀번호"
           rules={[
             {
               required: true,
-              message: "Please input your password!",
+              message: "비밀번호를 입력해주세요.",
             },
           ]}
           hasFeedback
@@ -163,13 +172,13 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="confirm"
-          label="Confirm Password"
+          label="비밀번호 확인"
           dependencies={["password"]}
           hasFeedback
           rules={[
             {
               required: true,
-              message: "Please confirm your password!",
+              message: "비밀번호를 다시 입력해주세요.",
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -177,9 +186,7 @@ const RegistrationForm = () => {
                   return Promise.resolve();
                 }
 
-                return Promise.reject(
-                  new Error("The two passwords that you entered do not match!")
-                );
+                return Promise.reject(new Error("입력한 비밀번호와 다릅니다."));
               },
             }),
           ]}
@@ -189,12 +196,12 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="nickname"
-          label="Nickname"
-          tooltip="What do you want others to call you?"
+          label="닉네임"
+          tooltip="상대방에게 보여질 닉네임을 설정하세요."
           rules={[
             {
               required: true,
-              message: "Please input your nickname!",
+              message: "닉네임을 입력해주세요.",
               whitespace: true,
             },
           ]}
@@ -204,12 +211,12 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="residence"
-          label="Habitual Residence"
+          label="주소"
           rules={[
             {
               type: "array",
               required: true,
-              message: "Please select your habitual residence!",
+              message: "주소를 입력해주세요.",
             },
           ]}
         >
@@ -218,11 +225,11 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="phone"
-          label="Phone Number"
+          label="전화번호"
           rules={[
             {
               required: true,
-              message: "Please input your phone number!",
+              message: "전화번호를 입력해주세요.",
             },
           ]}
         >
@@ -236,18 +243,17 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="website"
-          label="Website"
+          label="웹사이트"
           rules={[
             {
-              required: true,
-              message: "Please input website!",
+              required: false,
             },
           ]}
         >
           <AutoComplete
             options={websiteOptions}
             onChange={onWebsiteChange}
-            placeholder="website"
+            placeholder="url"
           >
             <Input />
           </AutoComplete>
@@ -255,25 +261,21 @@ const RegistrationForm = () => {
 
         <Form.Item
           name="gender"
-          label="Gender"
+          label="성별"
           rules={[
             {
               required: true,
-              message: "Please select gender!",
+              message: "성별을 선택해주세요.",
             },
           ]}
         >
-          <Select placeholder="select your gender">
-            <Option value="male">Male</Option>
-            <Option value="female">Female</Option>
-            <Option value="other">Other</Option>
+          <Select placeholder="성별 선택">
+            <Option value="male">남</Option>
+            <Option value="female">여</Option>
           </Select>
         </Form.Item>
 
-        <Form.Item
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
+        <Form.Item label="Captcha" extra="로봇이 아닙니다.">
           <Row gutter={8}>
             <Col span={12}>
               <Form.Item
@@ -282,7 +284,7 @@ const RegistrationForm = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please input the captcha you got!",
+                    message: "생성된 Captcha를 입력해주세요.",
                   },
                 ]}
               >
@@ -303,18 +305,18 @@ const RegistrationForm = () => {
               validator: (_, value) =>
                 value
                   ? Promise.resolve()
-                  : Promise.reject(new Error("Should accept agreement")),
+                  : Promise.reject(new Error("이용약관을 동의해야 합니다.")),
             },
           ]}
           {...tailFormItemLayout}
         >
           <Checkbox>
-            I have read the <a href="">agreement</a>
+            <a href="">이용약관</a> 동의
           </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Register
+            회원가입
           </Button>
         </Form.Item>
       </Form>
