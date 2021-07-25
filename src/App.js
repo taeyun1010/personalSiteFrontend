@@ -34,7 +34,7 @@ const App = () => {
         <Route path="/platform-game" component={PlatformGame} />
         <Route path="/profile" component={Profile} />
         <Route path="/notice-board" component={NoticeBoard} />
-        <Route path="/post" component={Post} />
+        <Route path="/post-notice-board" component={Post} />
       </Content>
       <Footer
         style={{

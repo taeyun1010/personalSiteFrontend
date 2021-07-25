@@ -41,7 +41,7 @@ class Nav extends React.Component {
     if (currentUser) {
       loginLink = (
         <Menu.Item>
-          <a href="/signout" onClick={this.handleSignout}>
+          <a href="/" onClick={this.handleSignout}>
             로그아웃
           </a>
         </Menu.Item>

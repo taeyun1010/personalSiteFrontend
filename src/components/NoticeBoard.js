@@ -92,7 +92,7 @@ const NoticeBoard = () => {
         dataSource={data}
         style={{ marginTop: "100px" }}
       />
-      <Button href="post">글쓰기</Button>
+      <Button href="/post-notice-board">글쓰기</Button>
     </div>
   );
 };

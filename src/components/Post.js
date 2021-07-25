@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import dotenv from "dotenv";
 import axios from "axios";
 import AuthService from "./AuthService";
+import authHeader from "./auth-header";
 
 dotenv.config();
 
@@ -14,13 +15,20 @@ const Post = () => {
     values["username"] = currentUser.username;
     values["readCount"] = 0;
     values["boardType"] = "notice";
+    // values["headers"] = authHeader();
     const url = "https://" + dbUrl + "/posts";
+    console.log(values);
+    console.log(currentUser);
     try {
-      await axios.post(url, values);
+      await axios.post(url, values, {
+        headers: authHeader(),
+      });
       window.location.href = "/notice-board";
     } catch (e) {
       if (e.response.status === 409) {
         console.log(e);
+      } else if (e.response.status === 403) {
+        alert("관리자 권한을 가진 사용자만 글을 쓸 수 있습니다.");
       }
     }
   };
