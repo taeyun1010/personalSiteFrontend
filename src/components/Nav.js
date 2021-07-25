@@ -7,10 +7,18 @@ import {
 } from "@ant-design/icons";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
+import AuthService from "./AuthService";
 
 const { SubMenu } = Menu;
 
 class Nav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: AuthService.getCurrentUser(),
+    };
+  }
   state = {
     current: "mail",
   };
@@ -20,8 +28,36 @@ class Nav extends React.Component {
     this.setState({ current: e.key });
   };
 
+  handleSignout = () => {
+    AuthService.logout();
+    window.location.href = "/";
+  };
+
   render() {
+    const { currentUser } = this.state;
     const { current } = this.state;
+    let loginLink;
+    let signupLink;
+    if (currentUser) {
+      loginLink = (
+        <Menu.Item>
+          <a href="/signout" onClick={this.handleSignout}>
+            로그아웃
+          </a>
+        </Menu.Item>
+      );
+    } else {
+      loginLink = (
+        <Menu.Item>
+          <a href="/signin">로그인</a>
+        </Menu.Item>
+      );
+      signupLink = (
+        <Menu.Item>
+          <a href="/signup">회원가입</a>
+        </Menu.Item>
+      );
+    }
     return (
       <div>
         <Menu
@@ -74,12 +110,8 @@ class Nav extends React.Component {
               <a href="/platform-game">Platform Game</a>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item>
-            <a href="/signin">로그인</a>
-          </Menu.Item>
-          <Menu.Item>
-            <a href="/signup">회원가입</a>
-          </Menu.Item>
+          {loginLink}
+          {signupLink}
         </Menu>
       </div>
     );

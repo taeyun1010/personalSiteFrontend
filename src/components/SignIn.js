@@ -1,9 +1,25 @@
 import { Form, Input, Button, Checkbox } from "antd";
 import ReactDOM from "react-dom";
+import dotenv from "dotenv";
+import axios from "axios";
+
+dotenv.config();
 
 const SignIn = () => {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    const dbUrl = process.env.REACT_APP_DB_HOST;
+    const url = "https://" + dbUrl + "/auth/signin";
     console.log("Success:", values);
+    try {
+      const response = await axios.post(url, values);
+      console.log(response);
+      if (response.data.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+      window.location.href = "/profile";
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -27,16 +43,16 @@ const SignIn = () => {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="이메일"
-          name="email"
+          label="닉네임"
+          name="username"
           rules={[
-            {
-              type: "email",
-              message: "유효한 이메일이 아닙니다.",
-            },
+            // {
+            //   type: "email",
+            //   message: "유효한 이메일이 아닙니다.",
+            // },
             {
               required: true,
-              message: "이메일을 입력해주세요.",
+              message: "닉네임을 입력해주세요.",
             },
           ]}
         >

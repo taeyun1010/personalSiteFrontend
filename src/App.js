@@ -8,6 +8,7 @@ import Index from "./components/Index";
 import PlatformGame from "./components/PlatformGame";
 import "./platformGame.css";
 import SignIn from "./components/SignIn";
+import Profile from "./components/Profile";
 
 const { Header, Footer, Content } = Layout;
 
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={RegistrationForm} />
         <Route path="/platform-game" component={PlatformGame} />
+        <Route path="/profile" component={Profile} />
       </Content>
       <Footer
         style={{

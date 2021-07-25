@@ -87,10 +87,12 @@ const RegistrationForm = () => {
 
   const onFinish = async (values) => {
     const dbUrl = process.env.REACT_APP_DB_HOST;
-    values["residence"] = values["residence"].join();
-    const url = "https://" + dbUrl + "/members";
+    values["address"] = values["address"].join();
+    // const url = "https://" + dbUrl + "/members";
+    const url = "https://" + dbUrl + "/auth/signup";
     try {
       await axios.post(url, values);
+      window.location.href = "/";
     } catch (e) {
       if (e.response.status === 409) {
         alert("이미 등록된 이메일입니다.");
@@ -195,7 +197,7 @@ const RegistrationForm = () => {
         </Form.Item>
 
         <Form.Item
-          name="nickname"
+          name="username"
           label="닉네임"
           tooltip="상대방에게 보여질 닉네임을 설정하세요."
           rules={[
@@ -210,7 +212,7 @@ const RegistrationForm = () => {
         </Form.Item>
 
         <Form.Item
-          name="residence"
+          name="address"
           label="주소"
           rules={[
             {
