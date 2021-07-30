@@ -19,9 +19,14 @@ class Nav extends React.Component {
       currentUser: AuthService.getCurrentUser(),
     };
   }
+
   state = {
     current: "mail",
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
 
   handleClick = (e) => {
     console.log("click ", e);
