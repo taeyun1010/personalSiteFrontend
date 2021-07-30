@@ -7,28 +7,26 @@ import authHeader from "./auth-header";
 
 dotenv.config();
 
-const Post = () => {
+const PostBoard = () => {
   const onFinish = async (values) => {
     const currentUser = AuthService.getCurrentUser();
     const dbUrl = process.env.REACT_APP_DB_HOST;
     values["date"] = new Date().toString();
     values["username"] = currentUser.username;
     values["readCount"] = 0;
-    // values["boardType"] = "notice";
-    // values["headers"] = authHeader();
-    const url = "https://" + dbUrl + "/posts";
+    const url = "https://" + dbUrl + "/normalPosts";
     console.log(values);
     console.log(currentUser);
     try {
       await axios.post(url, values, {
         headers: authHeader(),
       });
-      window.location.href = "/notice-board";
+      window.location.href = "/board";
     } catch (e) {
       if (e.response.status === 409) {
         console.log(e);
       } else if (e.response.status === 403) {
-        alert("관리자 권한을 가진 사용자만 글을 쓸 수 있습니다.");
+        alert("로그인한 사용자만 글을 쓸 수 있습니다.");
       }
     }
   };
@@ -92,6 +90,6 @@ const Post = () => {
   );
 };
 
-ReactDOM.render(<Post />, document.getElementById("root"));
+ReactDOM.render(<PostBoard />, document.getElementById("root"));
 
-export default Post;
+export default PostBoard;

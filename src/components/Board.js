@@ -47,7 +47,7 @@ const columns = [
     dataIndex: "delete",
     key: "delete",
     render: (link) => (
-      <a href="/notice-board" onClick={() => handleClick(link)}>
+      <a href="/board" onClick={() => handleClick(link)}>
         삭제
       </a>
     ),
@@ -78,16 +78,16 @@ const columns = [
 //   },
 // ];
 
-const NoticeBoard = () => {
+const Board = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const url = "https://" + dbUrl + "/posts";
+        const url = "https://" + dbUrl + "/normalPosts";
         const response = await axios.get(url);
-        const posts = response["data"]["_embedded"]["posts"];
+        const posts = response["data"]["_embedded"]["normalPosts"];
         let counter = 1;
         let newData = [];
         for (let post of posts) {
@@ -121,11 +121,11 @@ const NoticeBoard = () => {
           rowExpandable: () => true,
         }}
       />
-      <Button href="/post-notice-board">글쓰기</Button>
+      <Button href="/post-board">글쓰기</Button>
     </div>
   );
 };
 
-ReactDOM.render(<NoticeBoard />, document.getElementById("root"));
+ReactDOM.render(<Board />, document.getElementById("root"));
 
-export default NoticeBoard;
+export default Board;

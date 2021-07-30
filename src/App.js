@@ -11,6 +11,8 @@ import SignIn from "./components/SignIn";
 import Profile from "./components/Profile";
 import NoticeBoard from "./components/NoticeBoard";
 import Post from "./components/Post";
+import Board from "./components/Board";
+import PostBoard from "./components/PostBoard";
 
 const { Header, Footer, Content } = Layout;
 
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/profile" component={Profile} />
         <Route path="/notice-board" component={NoticeBoard} />
         <Route path="/post-notice-board" component={Post} />
+        <Route path="/board" component={Board} />
+        <Route path="/post-board" component={PostBoard} />
       </Content>
       <Footer
         style={{

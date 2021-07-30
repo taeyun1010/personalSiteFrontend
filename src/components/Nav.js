@@ -82,7 +82,9 @@ class Nav extends React.Component {
             Navigation Two
           </Menu.Item>
           <SubMenu key="SubMenu" icon={<SettingOutlined />} title="커뮤니티">
-            <Menu.Item key="setting:1">게시판</Menu.Item>
+            <Menu.Item key="setting:1">
+              <a href="/board">게시판</a>
+            </Menu.Item>
             <Menu.Item key="setting:2">
               <a href="/notice-board">공지사항</a>
             </Menu.Item>
