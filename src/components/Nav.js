@@ -43,12 +43,18 @@ class Nav extends React.Component {
     const { current } = this.state;
     let loginLink;
     let signupLink;
+    let profileLink;
     if (currentUser) {
       loginLink = (
         <Menu.Item>
           <a href="/" onClick={this.handleSignout}>
             로그아웃
           </a>
+        </Menu.Item>
+      );
+      profileLink = (
+        <Menu.Item>
+          <a href="/profile">내 프로필</a>
         </Menu.Item>
       );
     } else {
@@ -113,6 +119,7 @@ class Nav extends React.Component {
               <a href="/platform-game">Platform Game</a>
             </Menu.Item>
           </SubMenu>
+          {profileLink}
           {loginLink}
           {signupLink}
         </Menu>
