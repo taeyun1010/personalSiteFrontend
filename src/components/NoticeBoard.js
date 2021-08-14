@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Table, Button } from "antd";
+import { Input, Table, Button } from "antd";
 import ReactDOM from "react-dom";
 import dotenv from "dotenv";
 import axios from "axios";
 import authHeader from "./auth-header";
+import AuthService from "./AuthService";
 
 dotenv.config();
 
@@ -19,6 +20,31 @@ const handleClick = async (link) => {
       alert("권한이 없습니다.");
     }
   }
+};
+
+const handleEdit = (event, creatorName, url) => {
+  const currentUser = AuthService.getCurrentUser();
+  const content = event.target.previousSibling.value;
+
+  if (currentUser.username !== creatorName) {
+    alert("자신이 작성한 게시글만 변경할 수 있습니다.");
+    return;
+  }
+  const patch = async (url) => {
+    try {
+      await axios.patch(
+        url,
+        { content },
+        {
+          headers: authHeader(),
+        }
+      );
+    } catch (e) {
+      alert("공지사항은 관리자만 수정할 수 있습니다.");
+      console.log(e);
+    }
+  };
+  patch(url);
 };
 
 const columns = [
@@ -93,6 +119,7 @@ const NoticeBoard = () => {
         for (let post of posts) {
           post["key"] = counter + "";
           post["delete"] = post["_links"]["self"]["href"];
+          post["patch"] = post["_links"]["self"]["href"];
           newData.push(post);
           ++counter;
         }
@@ -116,7 +143,21 @@ const NoticeBoard = () => {
         style={{ marginTop: "100px" }}
         expandable={{
           expandedRowRender: (record) => (
-            <p style={{ margin: 0 }}>{record.content}</p>
+            <div>
+              {/* <p style={{ margin: 0 }}>{record.content}</p> */}
+              <Input.TextArea
+                style={{ margin: 0 }}
+                defaultValue={record.content}
+              />
+              <a
+                href="/notice-board"
+                onClick={(event) =>
+                  handleEdit(event, record.username, record.patch)
+                }
+              >
+                수정
+              </a>
+            </div>
           ),
           rowExpandable: () => true,
         }}

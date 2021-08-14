@@ -19,6 +19,7 @@ const SignIn = () => {
       window.location.href = "/profile";
     } catch (e) {
       console.log(e);
+      alert("닉네임 또는 비밀번호가 틀립니다.");
     }
   };
 

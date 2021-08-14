@@ -96,7 +96,10 @@ const RegistrationForm = () => {
     } catch (e) {
       if (e.response.status === 409) {
         alert("이미 등록된 이메일입니다.");
+      } else if (e.response.status === 400) {
+        alert("이미 등록된 닉네임입니다.");
       }
+      console.log(e);
     }
   };
 
