@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import authHeader from "./auth-header";
 
 // saves jwt to local storage
 
@@ -37,6 +38,16 @@ class AuthService {
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
+  }
+
+  getAllUsers() {
+    return axios
+      .get("https://" + dbUrl + "/members", {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
   }
 }
 

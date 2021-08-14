@@ -44,6 +44,7 @@ class Nav extends React.Component {
     let loginLink;
     let signupLink;
     let profileLink;
+    let adminLink;
     if (currentUser) {
       loginLink = (
         <Menu.Item>
@@ -57,6 +58,13 @@ class Nav extends React.Component {
           <a href="/profile">내 프로필</a>
         </Menu.Item>
       );
+      if (currentUser.username === "taeyun1010") {
+        adminLink = (
+          <Menu.Item>
+            <a href="/admin">admin</a>
+          </Menu.Item>
+        );
+      }
     } else {
       loginLink = (
         <Menu.Item>
@@ -122,6 +130,7 @@ class Nav extends React.Component {
           {profileLink}
           {loginLink}
           {signupLink}
+          {adminLink}
         </Menu>
       </div>
     );
