@@ -1,39 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import dotenv from "dotenv";
+import AuthService from "../AuthService";
+import authHeader from "../auth-header";
 import { Card, Row } from "antd";
 import {
   EditOutlined,
   EllipsisOutlined,
   DeleteOutlined,
-  ShoppingCartOutlined,
 } from "@ant-design/icons";
-import authHeader from "../auth-header";
-import AuthService from "../AuthService";
 
 const { Meta } = Card;
 
 dotenv.config();
 
 const dbUrl = process.env.REACT_APP_DB_HOST;
-const Products = () => {
-  const url = "https://" + dbUrl + "/products";
+
+const Cart = () => {
+  const currentUser = AuthService.getCurrentUser();
+  const cartUrl = "https://" + dbUrl + "/carts/" + currentUser.username;
+  const [loading, setLoading] = useState(false);
   const [srcs, setSrcs] = useState([]);
   const [names, setNames] = useState([]);
   const [usernames, setUsernames] = useState([]);
   const [prices, setPrices] = useState([]);
   const [descs, setDescs] = useState([]);
-  const [links, setLinks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  let [totalPrice, setTotalPrice] = useState(0);
+  // const [links, setLinks] = useState([]);
   let binaryData;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getCart = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(url);
-        const products = response.data["_embedded"].products;
-        for (const product of products) {
+        const response = await axios.get(cartUrl, {
+          headers: authHeader(),
+        });
+        console.log(response);
+        for (const product of response.data) {
           // console.log(product);
           binaryData = product.image.data;
           const img = document.createElement("img");
@@ -42,58 +46,27 @@ const Products = () => {
           usernames.push(product.username);
           prices.push(product.price);
           descs.push(product.description);
-          links.push(product["_links"]["self"]["href"]);
+          // links.push(product["_links"]["self"]["href"]);
           setSrcs(srcs);
           setNames(names);
           setUsernames(usernames);
           setPrices(prices);
           setDescs(descs);
-          setLinks(links);
-          // img.src = "data:image/jpg;base64," + binaryData;
-          // img.style.maxWidth = "300px";
-          // img.style.height = "auto";
-          // document.body.appendChild(img);
+          // setLinks(links);
         }
+        for (const price of prices) {
+          totalPrice += price;
+        }
+        console.log(totalPrice);
       } catch (e) {
         console.log(e);
       }
       setLoading(false);
     };
-    fetchData();
+    getCart();
   }, []);
 
-  const handleDelete = async (link) => {
-    // console.log(link);
-    try {
-      await axios.delete(link, {
-        headers: authHeader(),
-      });
-      window.location.href = "/products";
-    } catch (e) {
-      if (e.response.status === 401) {
-        alert("권한이 없습니다.");
-      }
-    }
-  };
-
-  const storeToCart = async (index) => {
-    const currentUser = AuthService.getCurrentUser();
-    const name = names[index];
-    const cartUrl =
-      "https://" + dbUrl + "/carts/" + currentUser.username + "/" + name;
-    // product.username = usernames[index];
-    // product.price = prices[index];
-    // product.description = descs[index];
-    try {
-      await axios.post(cartUrl, {
-        headers: authHeader(),
-      });
-      alert("카트에 저장했습니다.");
-    } catch (e) {
-      alert("카트 저장 실패");
-      console.log(e);
-    }
-  };
+  const handleDelete = async () => {};
 
   if (loading) {
     return <div>데이터를 가져오는 중...</div>;
@@ -113,11 +86,7 @@ const Products = () => {
                 <EllipsisOutlined key="ellipsis" />,
                 <DeleteOutlined
                   key="delete"
-                  onClick={(event) => handleDelete(links[index])}
-                />,
-                <ShoppingCartOutlined
-                  key="cart"
-                  onClick={(event) => storeToCart(index)}
+                  onClick={(event) => handleDelete()}
                 />,
               ]}
             >
@@ -132,4 +101,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Cart;

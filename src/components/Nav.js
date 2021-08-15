@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import { AppstoreOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import AuthService from "./AuthService";
@@ -41,6 +41,7 @@ class Nav extends React.Component {
     let signupLink;
     let profileLink;
     let adminLink;
+    let cartLink;
     if (currentUser) {
       loginLink = (
         <Menu.Item>
@@ -52,6 +53,13 @@ class Nav extends React.Component {
       profileLink = (
         <Menu.Item>
           <a href="/profile">내 프로필</a>
+        </Menu.Item>
+      );
+      cartLink = (
+        <Menu.Item>
+          <a href="/cart">
+            <ShoppingCartOutlined />
+          </a>
         </Menu.Item>
       );
       if (currentUser.username === "taeyun1010") {
@@ -129,6 +137,7 @@ class Nav extends React.Component {
             </Menu.Item>
           </SubMenu>
           {profileLink}
+          {cartLink}
           {loginLink}
           {signupLink}
           {adminLink}

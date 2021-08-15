@@ -16,6 +16,7 @@ import PostBoard from "./components/PostBoard";
 import Admin from "./components/Admin";
 import UploadProduct from "./components/ShoppingMall/UploadProduct";
 import Products from "./components/ShoppingMall/Products";
+import Cart from "./components/ShoppingMall/Cart";
 
 const { Header, Footer, Content } = Layout;
 
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/admin" component={Admin} />
         <Route path="/upload-product" component={UploadProduct} />
         <Route path="/products" component={Products} />
+        <Route path="/cart" component={Cart} />
       </Content>
       <Footer
         style={{
