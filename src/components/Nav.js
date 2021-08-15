@@ -1,10 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
-import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { AppstoreOutlined } from "@ant-design/icons";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import AuthService from "./AuthService";

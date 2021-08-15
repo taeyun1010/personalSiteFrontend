@@ -55,7 +55,8 @@ const App = () => {
           bottom: "0",
         }}
       >
-        <Route path="/" component={Counter} />
+        {/* <Route path="/" component={Counter} /> */}
+        <Counter></Counter>
       </Footer>
     </Layout>
   );
