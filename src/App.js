@@ -14,6 +14,8 @@ import Post from "./components/Post";
 import Board from "./components/Board";
 import PostBoard from "./components/PostBoard";
 import Admin from "./components/Admin";
+import UploadProduct from "./components/ShoppingMall/UploadProduct";
+import Products from "./components/ShoppingMall/Products";
 
 const { Header, Footer, Content } = Layout;
 
@@ -41,6 +43,8 @@ const App = () => {
         <Route path="/board" component={Board} />
         <Route path="/post-board" component={PostBoard} />
         <Route path="/admin" component={Admin} />
+        <Route path="/upload-product" component={UploadProduct} />
+        <Route path="/products" component={Products} />
       </Content>
       <Footer
         style={{

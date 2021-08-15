@@ -94,13 +94,18 @@ class Nav extends React.Component {
               ></img>
             </a>
           </Menu.Item>
-          <Menu.Item key="mail" icon={<MailOutlined />}>
-            Navigation One
-          </Menu.Item>
+          <SubMenu key="Shopping" title="쇼핑">
+            <Menu.Item key="products">
+              <a href="/products">전체 상품</a>
+            </Menu.Item>
+            <Menu.Item key="mail">
+              <a href="/upload-product">상품 업로드</a>
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
             Navigation Two
           </Menu.Item>
-          <SubMenu key="SubMenu" icon={<SettingOutlined />} title="커뮤니티">
+          <SubMenu key="SubMenu" title="커뮤니티">
             <Menu.Item key="setting:1">
               <a href="/board">게시판</a>
             </Menu.Item>
@@ -121,7 +126,7 @@ class Nav extends React.Component {
               Navigation Four - Link
             </a>
           </Menu.Item>
-          <SubMenu key="SubMenu" icon={<SettingOutlined />} title="기타">
+          <SubMenu key="SubMenu" title="기타">
             <Menu.Item key="setting:1">Option 1</Menu.Item>
             <Menu.Item key="setting:2">
               <a href="/platform-game">Platform Game</a>
