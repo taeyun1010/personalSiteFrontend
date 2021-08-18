@@ -31,7 +31,6 @@ const url = "https://" + dbUrl + "/products/add";
 // const imageUrl = "https://" + dbUrl + "/products/add-image";
 
 const UploadProduct = () => {
-  let currentFileList = [];
   // const onFinish = async (values) => {
   //   // const imagePath = values["image"];
   //   // values["image"] = "";
@@ -71,15 +70,6 @@ const UploadProduct = () => {
   //     console.log(e);
   //   }
   // };
-
-  const onFinishFailed = (e) => {
-    console.log(e);
-  };
-
-  const handleUpload = ({ fileList }) => {
-    // console.log("fileList", fileList);
-    currentFileList = fileList;
-  };
 
   return (
     // <Form

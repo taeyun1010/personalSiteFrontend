@@ -1,7 +1,7 @@
 import React from "react";
 import NoticeBoard from "./NoticeBoard";
 import Board from "./Board";
-import Products from "./ShoppingMall/Products";
+import TopProducts from "./ShoppingMall/TopProducts";
 
 const Index = () => {
   return (
@@ -10,7 +10,7 @@ const Index = () => {
         this website is still under development
         <img src="img/background.jpg" width="30%" height="auto"></img>
       </div> */}
-      <Products></Products>
+      <TopProducts></TopProducts>
       <h1>공지사항</h1>
       <NoticeBoard></NoticeBoard>
       <h1 style={{ marginTop: "20px" }}>게시판</h1>
