@@ -17,6 +17,7 @@ import Admin from "./components/Admin";
 import UploadProduct from "./components/ShoppingMall/UploadProduct";
 import Products from "./components/ShoppingMall/Products";
 import Cart from "./components/ShoppingMall/Cart";
+import Chat from "./components/Chat";
 
 const { Header, Footer, Content } = Layout;
 
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/upload-product" component={UploadProduct} />
         <Route path="/products" component={Products} />
         <Route path="/cart" component={Cart} />
+        <Route path="/chat" component={Chat} />
       </Content>
       <Footer
         style={{

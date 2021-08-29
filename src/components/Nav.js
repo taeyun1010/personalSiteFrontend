@@ -42,6 +42,7 @@ class Nav extends React.Component {
     let profileLink;
     let adminLink;
     let cartLink;
+    let chatLink;
     if (currentUser) {
       loginLink = (
         <Menu.Item>
@@ -60,6 +61,11 @@ class Nav extends React.Component {
           <a href="/cart">
             <ShoppingCartOutlined />
           </a>
+        </Menu.Item>
+      );
+      chatLink = (
+        <Menu.Item>
+          <a href="/chat">채팅</a>
         </Menu.Item>
       );
       if (currentUser.username === "taeyun1010") {
@@ -138,6 +144,7 @@ class Nav extends React.Component {
           </SubMenu>
           {profileLink}
           {cartLink}
+          {chatLink}
           {loginLink}
           {signupLink}
           {adminLink}
