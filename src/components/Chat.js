@@ -42,7 +42,6 @@ function connect(event) {
 
 function onConnected() {
   // const url = "/app/chat/" + roomId + "/addUser";
-  const url = "https://" + dbUrl + "/app/chat/" + roomId + "/addUser";
   // console.log("url = " + url);
 
   // Subscribe to the Public Topic
@@ -54,6 +53,10 @@ function onConnected() {
   // );
 
   stompClient.subscribe("/topic/" + roomId, onMessageReceived);
+  stompClient.subscribe(
+    "/topic/" + username + "/queue/" + roomId,
+    onMessageReceived
+  );
 
   // Tell your username to the server
   // stompClient.send(url, {}, JSON.stringify({ sender: username, type: "JOIN" }));
